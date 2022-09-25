@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom'
 const Navbar = ({setProgress}) => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
+  const [toggleWidth, setToggleWidth] = useState(window.innerWidth);
 
   const goToTop = () => {
     window.scrollTo({
@@ -16,6 +17,56 @@ const Navbar = ({setProgress}) => {
         behavior: "smooth",
     });
   };
+
+  useEffect(()=>{
+    window.addEventListener("resize",()=>{
+      setToggleWidth(window.innerWidth)
+    })
+  },[window.innerWidth])
+
+  // console.log(toggleWidth)
+
+  const goToCase = () => {
+    if(toggleWidth >= 1060){
+      window.scrollTo({
+        top: 4500,
+        behavior: "smooth",
+    });
+    }else if(toggleWidth<1059 && toggleWidth>=992){
+      window.scrollTo({
+        top: 6800,
+        behavior: "smooth",
+    });
+    }
+    else if(toggleWidth<=991 && toggleWidth>=768){
+      window.scrollTo({
+        top: 7300,
+        behavior: "smooth",
+    });
+    }
+    else if(toggleWidth<=767 && toggleWidth>=390){
+      window.scrollTo({
+        top: 9600,
+        behavior: "smooth",
+    });
+    }
+    else if(toggleWidth<390 && toggleWidth>=335){
+      window.scrollTo({
+        top: 9700,
+        behavior: "smooth",
+    });
+    }
+    else if(toggleWidth<335 && toggleWidth>=200){
+      window.scrollTo({
+        top: 10100,
+        behavior: "smooth",
+    });
+    }
+
+
+    
+  };
+
 
   
   
@@ -41,7 +92,7 @@ const Navbar = ({setProgress}) => {
             onClick={() => setActive(nav.title)}
           >
           {nav.id === "case-studies" ? (
-            <a href={`#${nav.id}`}>{nav.title}</a>
+            <Link onClick={goToCase} to={`/`}>{nav.title}</Link>
           ):(
               <Link onClick={goToTop} to={`/${nav.id}`}>{nav.title}</Link>
           )}
@@ -72,7 +123,7 @@ const Navbar = ({setProgress}) => {
                 onClick={() => setActive(nav.title)}
               >
                {nav.id === "case-studies" ? (
-                <a href={`#${nav.id}`}>{nav.title}</a>
+                <Link onClick={goToCase} to={`/`}>{nav.title}</Link>
               ):(
                 
                   <Link onClick={goToTop} to={`/${nav.id}`}>{nav.title}</Link>

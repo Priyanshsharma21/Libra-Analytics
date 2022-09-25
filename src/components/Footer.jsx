@@ -3,15 +3,69 @@ import { logo,csa,lo} from "../assets";
 import { footerLinks, socialMedia } from "../constants";
 import { Link } from "react-router-dom";
 import {motion} from 'framer-motion'
+import { useEffect,useState } from "react";
 
 const Footer = () => {
 
-    const goToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-      };
+    const [toggleWidth, setToggleWidth] = useState(window.innerWidth);
+
+  const goToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+    });
+  };
+
+  useEffect(()=>{
+    window.addEventListener("resize",()=>{
+      setToggleWidth(window.innerWidth)
+    })
+  },[window.innerWidth])
+
+  // console.log(toggleWidth)
+
+  const goToCase = () => {
+    if(toggleWidth >= 1060){
+      window.scrollTo({
+        top: 4500,
+        behavior: "smooth",
+    });
+    }else if(toggleWidth<1059 && toggleWidth>=992){
+      window.scrollTo({
+        top: 6800,
+        behavior: "smooth",
+    });
+    }
+    else if(toggleWidth<=991 && toggleWidth>=768){
+      window.scrollTo({
+        top: 7300,
+        behavior: "smooth",
+    });
+    }
+    else if(toggleWidth<=767 && toggleWidth>=390){
+      window.scrollTo({
+        top: 9600,
+        behavior: "smooth",
+    });
+    }
+    else if(toggleWidth<390 && toggleWidth>=335){
+      window.scrollTo({
+        top: 9700,
+        behavior: "smooth",
+    });
+    }
+    else if(toggleWidth<335 && toggleWidth>=200){
+      window.scrollTo({
+        top: 10100,
+        behavior: "smooth",
+    });
+    }
+
+
+    
+  };
+
+    
 
  return (
   <>
@@ -45,7 +99,7 @@ const Footer = () => {
                                 <div className="widget-content">
                                     <ul>
                                         <li className="footer_text"><Link onClick={goToTop} className="text-slate-800" to={`/`}>Home</Link></li>
-                                        <li className="footer_text"><a className="text-slate-800" href={"#case-studies"}>Case Studies</a></li>
+                                        <li className="footer_text"><Link className="text-slate-800" onClick={goToCase} to={`/`}>Case Studies</Link></li>
                                         <li onClick={goToTop} className="footer_text"><Link className="text-slate-800" to={`/contact`}>Contact Us</Link></li>
                                     </ul>
                                 </div>
